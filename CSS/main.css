@@ -8,6 +8,8 @@ body {
   p {
     color: red;
     text-align: center;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
   }
   form{
     
@@ -19,6 +21,6 @@ body {
     align-self: center;
     text-align: center;
     
-    font-size: 16px;
+    font-size: 18px;
       
   }

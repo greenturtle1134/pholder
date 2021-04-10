@@ -12,14 +12,21 @@
     <title>Upload Files!</title>
   </head>
   <body>
-    <h1>Hello!</h1>
-    <p> Please input images using the buttons below! Our Machine Learning algorithm will help sort the images.</p>
-    <form action="/thankyou.html">
+    <h1>Upload Images</h1>
+    <p> Please input images using the buttons below! Our Machine Learning algorithm will help sort the images. All you have to do is upload your image files and then hit confirm. </p>
+    <form action="./thankyou.html">
       <label for="imagefiles" class="form-label"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Input Images here: </label>
-      <input  id="imagefiles" type="file" align-self="center" multiple accept=".jpg,.png"/>
+      <input  id="imagefiles" type="file" align-self="center" multiple accept=".jpg,.png" name="uploadfile"/>
       <br />
-      <input type="submit" value="Confirm"  >
+      
+      <button onclick="addimg(uploadfile)">Confirm</button>
     </form>
+    <script>
+    function addimg(image) {
+    console.log(image)
+    console.log(1)
+  }
+    </script>
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
   </body>
