@@ -4,3 +4,7 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
+
+ipc.handle('perform-action', (event, ...args) => {
+  // ... do actions on behalf of the Renderer
+})
