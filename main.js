@@ -34,5 +34,5 @@ ipcMain.on("add-image", (event, path)=>{
 })
 
 function addImage(path){
-  //your code here
+  console.log('it worked')
 }
