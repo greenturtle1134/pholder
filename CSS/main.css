@@ -4,13 +4,19 @@ body {
   h1 {
     color: blue;
     text-align: center;
+    background-color: powderblue;
   }
   p {
     color: red;
     text-align: center;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
+    background-color: powderblue;
   }
+  .powderblue{
+    background-color: powderblue;
+  }
+
   div{
     
     margin: auto;
@@ -23,4 +29,12 @@ body {
     
     font-size: 18px;
       
+  }
+  a{
+ 
+    color: white;
+    padding-right: 20px;
+    }
+  html{
+    background-color: powderblue;
   }
