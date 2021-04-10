@@ -13,9 +13,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// executed when app is initiallized
 app.whenReady().then(() => {
   createWindow()
 
@@ -26,9 +24,7 @@ app.whenReady().then(() => {
   })
 })
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+// Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
