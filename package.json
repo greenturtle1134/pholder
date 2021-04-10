@@ -1,22 +1,25 @@
 {
   "name": "electron-quick-start",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A Photo Organizer for all your photos!",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "photo"
   ],
-  "author": "GitHub",
+  "author": "Pholder Contributors",
   "license": "GPLv3",
   "devDependencies": {
     "electron": "^12.0.2"
+  },
+  "dependencies": {
+    "exif": "^0.6.0",
+    "ipc": "0.0.1",
+    "@tensorflow-models/mobilenet": "^2.1.0",
+    "@tensorflow/tfjs": "3.3.0",
+    "@tensorflow/tfjs-node": "3.3.0"
   }
 }
