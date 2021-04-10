@@ -1,5 +1,6 @@
-// This file is the Javascipt file for the web browser window. We can use it to run any frontend ops and call any function in the backend (code for that here)
+const { ipcRenderer } = require('electron')
 
-ipc.handle('perform-action', (event, ...args) => {
-  // run functions in the backend
+ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  console.log(arg) // prints "pong"
 })
+ipcRenderer.send('asynchronous-message', 'ping')
