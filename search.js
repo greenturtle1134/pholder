@@ -1,5 +1,3 @@
-var natural = require('natural')
-
 // arguments: string array of keywords, array of javascript objects with images and descriptors
 function search_keywords(keywords, database){
 
@@ -16,19 +14,13 @@ function search_keywords(keywords, database){
         // iterate through image classifiers
         for(var key in obj) {
             var val = obj[key]
-
-            if(val.isArray()) {
-                for(var x in val) {
-                    for(var keyword in keywords) {
-                        if(natural.PorterStemmer.stem(x) == natural.PorterStemmer.stem(keyword)) {
-                            match_count += 1
-                        }
-                    }
-                }
+            if(!val.isArray()) {
+                val = [val]
             }
-            else {
+
+            for(var x in val) {
                 for(var keyword in keywords) {
-                    if(natural.PorterStemmer.stem(val) == natural.PorterStemmer.stem(keyword)) {
+                    if(x == keyword) {
                         match_count += 1
                     }
                 }
@@ -68,19 +60,13 @@ function search_keywords(keywords, type, database){
 
         // iterate through image classifiers
         var val = obj[type]
-
-        if(val.isArray()) {
-            for(var x in val) {
-                for(var keyword in keywords) {
-                    if(natural.PorterStemmer.stem(x) == natural.PorterStemmer.stem(keyword)) {
-                        match_count += 1
-                    }
-                }
-            }
+        if(!val.isArray()) {
+            val = [val]
         }
-        else {
+
+        for(var x in val) {
             for(var keyword in keywords) {
-                if(natural.PorterStemmer.stem(val) == natural.PorterStemmer.stem(keyword)) {
+                if(x == keyword) {
                     match_count += 1
                 }
             }
