@@ -18,6 +18,6 @@
   "dependencies": {
     "@tensorflow-models/mobilenet": "^2.1.0",
     "@tensorflow/tfjs": "3.3.0",
-    "@tensorflow/tfjs_node": "3.3.0",
+    "@tensorflow/tfjs-node": "3.3.0"
   }
 }

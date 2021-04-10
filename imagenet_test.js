@@ -1,5 +1,5 @@
 imagenet = require("./imagenet.js")
 
-imagenet.classify("/Users/omduggineni/Desktop/Screen Shot 2021-04-09 at 3.24.10 PM.png").then((e)=>{
+imagenet.classify("/Users/omtatva/Desktop/IMG_1322.JPG").then((e)=>{
   console.log(e)
 })
