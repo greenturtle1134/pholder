@@ -1,3 +1,5 @@
+var natural = require('natural')
+
 // arguments: string array of keywords, array of javascript objects with images and descriptors
 function search_keywords(keywords, database){
 
@@ -18,7 +20,7 @@ function search_keywords(keywords, database){
             if(val.isArray()) {
                 for(var x in val) {
                     for(var keyword in keywords) {
-                        if(x == keyword) {
+                        if(natural.PorterStemmer.stem(x) == natural.PorterStemmer.stem(keyword)) {
                             match_count += 1
                         }
                     }
@@ -26,7 +28,7 @@ function search_keywords(keywords, database){
             }
             else {
                 for(var keyword in keywords) {
-                    if(val == keyword) {
+                    if(natural.PorterStemmer.stem(val) == natural.PorterStemmer.stem(keyword)) {
                         match_count += 1
                     }
                 }
@@ -70,7 +72,7 @@ function search_keywords(keywords, type, database){
         if(val.isArray()) {
             for(var x in val) {
                 for(var keyword in keywords) {
-                    if(x == keyword) {
+                    if(natural.PorterStemmer.stem(x) == natural.PorterStemmer.stem(keyword)) {
                         match_count += 1
                     }
                 }
@@ -78,7 +80,7 @@ function search_keywords(keywords, type, database){
         }
         else {
             for(var keyword in keywords) {
-                if(val == keyword) {
+                if(natural.PorterStemmer.stem(val) == natural.PorterStemmer.stem(keyword)) {
                     match_count += 1
                 }
             }
