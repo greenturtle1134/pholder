@@ -100,3 +100,5 @@ function search_keywords(keywords, type, database){
 
     return matches
 }
+
+module.exports.search_keywords = search_keywords;
