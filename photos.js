@@ -1,4 +1,5 @@
-var ExifImage = require('exif').ExifImage;
+const ExifImage = require('exif').ExifImage;
+const imagenet = require("./imagenet.js")
 class PhotoData {
     constructor() {
         this.metadata = null;
@@ -24,6 +25,9 @@ module.exports.Photos = class {
         } catch (error) {
             console.log('Error: ' + error.message);
         }
+        imagenet.classify(path).then((e)=>{
+            photos.get(path).imagenet = e;
+        });
     }
 
     addPhotos(paths) {
