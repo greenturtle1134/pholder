@@ -1,18 +1,15 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "pholder",
+  "version": "0.0.1",
+  "description": "AI-based photo manager and classifier",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/greenturtle1134/pholder",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "photo"
   ],
   "author": "GitHub",
   "license": "GPLv3",
