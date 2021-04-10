@@ -1,18 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+    <title>Pholder: Home</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+      }
+    </style>
   </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
+  <body ondrop="dropFile(event)" ondragover="dragOverFile(event);">
+    <div class="w3-modal" id="modal01">
+      <div class="w3-modal-content">
+        <p>Hi</p>
+      </div>
+    </div>
+    <div class="w3-top w3-bar">
+      <input type="text" placeholder="Search ..." class="w3-input w3-border-black">
+    </div>
+    </br>
+    <div class="w3-container w3-padding-top" id="gallery">
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+      <div class="w3-col w3-quarter w3-padding">
+        <img src="https://hdqwalls.com/wallpapers/best-nature-image.jpg" width="100%">
+      </div>
+    </div>
+    
     <script src="./renderer.js"></script>
   </body>
 </html>

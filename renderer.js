@@ -1,5 +1,38 @@
-// This file is the Javascipt file for the web browser window. We can use it to run any frontend ops and call any function in the backend (code for that here)
+function dropFile(e){
+    e.preventDefault()
 
-ipc.handle('perform-action', (event, ...args) => {
-  // run functions in the backend
-})
+    document.getElementById('modal01').style.display='none' 
+    
+    if (e.dataTransfer.items) {
+        for (var i = 0; i < e.dataTransfer.items.length; i++) {
+          if (e.dataTransfer.items[i].kind === 'file') {
+            let filename = e.dataTransfer.items[i].getAsFile().name    
+            console.log(filename)
+            addimg(filename);
+          }
+        }
+      } else {
+        for (var i = 0; i < e.dataTransfer.files.length; i++) {
+          let filename = e.dataTransfer.files[i].name  
+          console.log(filename)
+          addimg(filename);
+        }
+      }
+}
+
+var clearDragTimeout = null
+function dragOverFile(e){
+    e.preventDefault()
+
+    document.getElementById('modal01').style.display='block'
+    if(clearDragTimeout != null){
+        clearTimeout(clearDragTimeout)
+    }
+    clearDragTimeout = setTimeout(()=>{
+        document.getElementById('modal01').style.display='none'
+    }, 1000)
+}
+
+function addimg() {
+    electron.addPhoto(document.getElementById('imagefiles').files[0].path);
+}
