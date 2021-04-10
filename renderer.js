@@ -1,4 +1,5 @@
+const { ipcMain, ipcRenderer } = require("electron");
+
 function addimg(image) {
-    console.log(image)
-    console.log(1)
+    ipcRenderer.send("add-image", image)
 }
