@@ -9,7 +9,8 @@ function createWindow () {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    icon: "./icon.png"
   });
   photos = new Photos(mainWindow.webContents);
 
