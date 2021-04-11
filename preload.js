@@ -4,6 +4,6 @@ contextBridge.exposeInMainWorld(
   'electron',
   {
     addPhoto: (filename) => ipcRenderer.send('add-image', filename),
-    ipcOn: ipcRenderer.on
+    ipcOn: (channel, f) => ipcRenderer.on(channel, f)
   }
 )

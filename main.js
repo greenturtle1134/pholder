@@ -13,7 +13,6 @@ function createWindow () {
     icon: "./icon.png"
   });
   photos = new Photos(mainWindow.webContents);
-
   mainWindow.loadFile('index.html');
 }
 
@@ -34,6 +33,5 @@ app.on('window-all-closed', function () {
 });
 
 ipcMain.on("add-image", (event, path)=>{
-  photos.addPhoto(path)
-  console.log(path);
+  photos.addPhoto(path);
 });
