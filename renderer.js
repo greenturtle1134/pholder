@@ -6,14 +6,14 @@ function dropFile(e){
     if (e.dataTransfer.items) {
         for (var i = 0; i < e.dataTransfer.items.length; i++) {
           if (e.dataTransfer.items[i].kind === 'file') {
-            let filename = e.dataTransfer.items[i].getAsFile().name    
+            let filename = e.dataTransfer.items[i].getAsFile().path   
             console.log(filename)
             addimg(filename);
           }
         }
       } else {
         for (var i = 0; i < e.dataTransfer.files.length; i++) {
-          let filename = e.dataTransfer.files[i].name  
+          let filename = e.dataTransfer.files[i].path  
           console.log(filename)
           addimg(filename);
         }
