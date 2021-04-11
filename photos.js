@@ -10,11 +10,10 @@ class PhotoData {
     }
 
     match(query) {
-        if(query === null) {
+        if(query === null || query == "") {
             return true;
         }
         if(this.imagenet !== null) {
-            console.log(this.imagenet)
             return this.imagenet.includes(query);
         }
         else{
@@ -49,12 +48,12 @@ module.exports.Photos = class {
             console.log('Error: ' + error.message);
         }
         imagenet.classify(path).then((e)=>{
+            console.log(e);
             let identified = [];
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
                 identified = identified.concat(e[i].className.split(", "));
             }
             photos.get(path).imagenet = identified;
-            console.log(identified);
             target.send("update-images", [photos.get(path)])
         }).catch((err)=>{
             photos.get(path).imagenet = ["error"]
@@ -68,45 +67,55 @@ module.exports.Photos = class {
         }
     }
 
-    filter(query) {
-        this.query = query;
-        let results = [];
-        for(const [path, photo] of this.photos.entries()){
-            if(photo.match(query)){
-                results.push(photo);
-            }
-        }
-        this.target.send("replace-images", results);
-    }
-
-    // searchPhotos(queries, photopaths) {
-    //     // queries is an array of search terms, photopaths is an array of paths
-    //     // assuming photos.get(path).imagenet returns an array of keywords associated with photo
-    //     // returns a sorted array of paths
-    //     var photos = this.photos
-    //     var matches = []
-    //     for(var path in photopaths) {
-    //         var match_count = 0
-    //         var keywords = photos.get(path).imagenet
-    //         if(keyword != null) {
-    //             for(keyword in keywords) {
-    //                 for(query in queries) {
-    //                     if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
-    //                         match_count += 1
-    //                     }
-    //                 }
-    //             }
-    //             if(match_count > 0) {
-    //                 matches.push([match_count, path])
-    //             }
+    // filter(query) {
+    //     this.query = query;
+    //     let results = [];
+    //     for(const [path, photo] of this.photos.entries()){
+    //         if(photo.match(natural.PorterStemmer.stem(query))){
+    //             results.push(photo);
     //         }
     //     }
-    //     matches = matches.sort(function(a, b) {
-    //         return b[0]-a[0]
-    //     })
-    //     for(var i=0; i<matches.length; i++) {
-    //         matches[i] = matches[i][1]
-    //     }
-    //     return matches
+    //     this.target.send("replace-images", results);
     // }
+
+    filter(query) {
+        // queries is an array of search terms, photopaths is an array of paths
+        // assuming photos.get(path).imagenet returns an array of keywords associated with photo
+        // returns a sorted array of paths
+        if(query == "") {
+            this.resetFilter();
+            return;
+        }
+        var queries = query.split(", ")
+        var matches = []
+        for(var [path, photo] of this.photos) {
+            var match_count = 0
+            var keywords = photo.imagenet
+            if(keywords !== null) {
+                for(let i in keywords) {
+                    let keyword = keywords[i];
+                    for(let j in queries) {
+                        let q = queries[j]
+                        if(natural.PorterStemmer.stem(q) == natural.PorterStemmer.stem(keyword)) {
+                            match_count += 1
+                        }
+                    }
+                }
+                if(match_count > 0) {
+                    matches.push([match_count, photo])
+                }
+            }
+        }
+        matches = matches.sort(function(a, b) {
+            return b[0]-a[0]
+        })
+        for(var i=0; i<matches.length; i++) {
+            matches[i] = matches[i][1]
+        }
+        this.target.send("replace-images", matches);
+    }
+
+    resetFilter() {
+        this.target.send("replace-images", Array.from(this.photos.values()));
+    }
 }
