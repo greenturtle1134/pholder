@@ -95,7 +95,13 @@ module.exports.Photos = class {
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
                 identified = identified.concat(e[i].class.split(", "));
             }
-            photos.get(path).imagenet = identified;
+            if(identified.length == 0) {
+                console.log("aaa")
+                photos.get(path).imagenet = ["no keyword matches :\\"]
+            } else {
+                console.log("bb")
+                photos.get(path).imagenet = identified;
+            }
             target.send("update-images", [photos.get(path)])
         }).catch((err)=>{
             photos.get(path).imagenet = ["information unavailable :("]
