@@ -68,10 +68,7 @@ function metaHTML(image){
         if(key == "metadata") {
             console.log(image[key])
             let val = image[key]
-            if(val == null) {
-                c2.innerHTML = "metadata unavailable :("
-            }
-            else{
+            if(val != null) {
                 // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
                 var image_meta = val["image"]
                 if("ImageWidth" in image_meta && "ImageHeight" in image_meta) {
@@ -83,9 +80,15 @@ function metaHTML(image){
                     }
                     c2.innerHTML += "Phone Model: " + image_meta["Make"] + " " + image_meta["Model"]
                 }
-
+                var exif_meta = val["exif"]
+                if("DateTimeOriginal" in exif_meta) {
+                    if(c2.innerHTML != "") {
+                        c2.innerHTML += "<br>"
+                    }
+                    c2.innerHTML += "Date & Time Created: " + exif_meta["DateTimeOriginal"]
+                }
             }
-            // if all checked categories are empty
+            // if metadata is null or all checked categories are empty
             if(c2.innerHTML == "") {
                 c2.innerHTML = "metadata unavailable :("
             }
