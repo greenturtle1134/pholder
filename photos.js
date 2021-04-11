@@ -8,12 +8,26 @@ class PhotoData {
         this.metadata = null;
         this.imagenet = null;
     }
+
+    match(query) {
+        if(query === null) {
+            return true;
+        }
+        if(this.imagenet !== null) {
+            console.log(this.imagenet)
+            return this.imagenet.includes(query);
+        }
+        else{
+            return false;
+        }
+    }
 }
 
 module.exports.Photos = class {
     constructor(target) {
         this.photos = new Map();
         this.target = target;
+        this.query = null;
     }
     
     addPhoto(path) {
@@ -50,38 +64,45 @@ module.exports.Photos = class {
         }
     }
 
-    searchPhotos(queries, photopaths) {
-        // queries is an array of search terms, photopaths is an array of paths
-        // assuming photos.get(path).imagenet returns an array of keywords associated with photo
-        // returns a sorted array of paths
-        var photos = this.photos
-        var matches = []
-        for(var path in photopaths) {
-            var match_count = 0
-            var keywords = photos.get(path).imagenet
-            var tokenizer = new natural.WordTokenizer()
-            if(keywords != null) {
-                for(keyword in keywords) {
-                    var tokens = tokenizer.tokenize(keyword)
-                    for(let i=0; i<tokens.length; i++) {
-                        for(query in queries) {
-                            if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(tokens[i])) {
-                                match_count += 1
-                            }
-                        }
-                    }
-                }
-                if(match_count > 0) {
-                    matches.push([match_count, path])
-                }
+    filter(query) {
+        this.query = query;
+        let results = [];
+        for(const [path, photo] of this.photos.entries()){
+            if(photo.match(query)){
+                results.push(photo);
             }
         }
-        matches = matches.sort(function(a, b) {
-            return b[0]-a[0]
-        })
-        for(var i=0; i<matches.length; i++) {
-            matches[i] = matches[i][1]
-        }
-        return matches
+        this.target.send("replace-images", results);
     }
+
+    // searchPhotos(queries, photopaths) {
+    //     // queries is an array of search terms, photopaths is an array of paths
+    //     // assuming photos.get(path).imagenet returns an array of keywords associated with photo
+    //     // returns a sorted array of paths
+    //     var photos = this.photos
+    //     var matches = []
+    //     for(var path in photopaths) {
+    //         var match_count = 0
+    //         var keywords = photos.get(path).imagenet
+    //         if(keyword != null) {
+    //             for(keyword in keywords) {
+    //                 for(query in queries) {
+    //                     if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
+    //                         match_count += 1
+    //                     }
+    //                 }
+    //             }
+    //             if(match_count > 0) {
+    //                 matches.push([match_count, path])
+    //             }
+    //         }
+    //     }
+    //     matches = matches.sort(function(a, b) {
+    //         return b[0]-a[0]
+    //     })
+    //     for(var i=0; i<matches.length; i++) {
+    //         matches[i] = matches[i][1]
+    //     }
+    //     return matches
+    // }
 }

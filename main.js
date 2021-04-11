@@ -35,3 +35,7 @@ app.on('window-all-closed', function () {
 ipcMain.on("add-image", (event, path)=>{
   photos.addPhoto(path);
 });
+
+ipcMain.on("search", (event, query)=>{
+  photos.filter(query);
+});
