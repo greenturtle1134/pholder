@@ -7,13 +7,17 @@ function dropFile(e){
         for (var i = 0; i < e.dataTransfer.items.length; i++) {
           if (e.dataTransfer.items[i].kind === 'file') {
             let filename = e.dataTransfer.items[i].getAsFile().path  
-            addimg(filename);
+            if(filename.toLowerCase().includes(".jpg") || filename.toLowerCase().includes(".jpeg") || filename.toLowerCase().includes(".png") || filename.toLowerCase().includes(".gif") || filename.toLowerCase().includes(".bmp")){
+                addimg(filename);
+            }
           }
         }
       } else {
         for (var i = 0; i < e.dataTransfer.files.length; i++) {
-          let filename = e.dataTransfer.files[i].path
-          addimg(filename);
+          let filename = e.dataTransfer.files[i].path 
+          if(filename.toLowerCase().includes(".jpg") || filename.toLowerCase().includes(".jpeg") || filename.toLowerCase().includes(".png") || filename.toLowerCase().includes(".gif") || filename.toLowerCase().includes(".bmp")){
+              addimg(filename);
+          }
         }
       }
 }
@@ -40,7 +44,7 @@ function metaHTML(image){
     imageElement = document.createElement("img")
     imageElement.src = image.path
     imageElement.style.width="100%"
-    imageElement.style.paddingTop="10px"
+    imageElement.style.paddingTop="40px"
     outer_element.appendChild(imageElement)
     element = document.createElement("table")
     element.classList.add("w3-table")
@@ -49,8 +53,10 @@ function metaHTML(image){
         row = document.createElement("tr")
         c1 = document.createElement("td")
         c1.innerHTML = key.replace(/^\w/, (c)=>(c.toUpperCase()))
+        c1.width = "100%"
         c2 = document.createElement("td")
         c2.innerHTML = image[key]
+        c2.width = "100%"
         row.appendChild(c1)
         row.appendChild(c2)
         element.appendChild(row)

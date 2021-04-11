@@ -49,13 +49,8 @@ module.exports.Photos = class {
         }
         imagenet.classify(path).then((e)=>{
             let identified = [];
-            var tokenizer = new natural.WordTokenizer()
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
-                // identified = identified.concat(e[i].className.split(", "));
-                var tokens = tokenizer.tokenize(e[i].className)
-                for(let j = 0; j<tokens.length; j++) {
-                    identified.push(tokens[j])
-                }
+                identified = identified.concat(e[i].className.split(", "));
             }
             photos.get(path).imagenet = identified;
             console.log(identified);
