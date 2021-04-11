@@ -1,13 +1,14 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A Photo Organizer for all your photos!",
+  "name": "pholder",
+  "version": "0.0.1",
+  "description": "AI-based photo manager and classifier",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/greenturtle1134/pholder",
   "keywords": [
+    "Electron",
     "photo"
   ],
   "author": "Pholder Contributors",
