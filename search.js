@@ -14,19 +14,13 @@ function search_keywords(keywords, database){
         // iterate through image classifiers
         for(var key in obj) {
             var val = obj[key]
-
-            if(val.isArray()) {
-                for(var x in val) {
-                    for(var keyword in keywords) {
-                        if(x == keyword) {
-                            match_count += 1
-                        }
-                    }
-                }
+            if(!val.isArray()) {
+                val = [val]
             }
-            else {
+
+            for(var x in val) {
                 for(var keyword in keywords) {
-                    if(val == keyword) {
+                    if(x == keyword) {
                         match_count += 1
                     }
                 }
@@ -66,19 +60,13 @@ function search_keywords(keywords, type, database){
 
         // iterate through image classifiers
         var val = obj[type]
-
-        if(val.isArray()) {
-            for(var x in val) {
-                for(var keyword in keywords) {
-                    if(x == keyword) {
-                        match_count += 1
-                    }
-                }
-            }
+        if(!val.isArray()) {
+            val = [val]
         }
-        else {
+
+        for(var x in val) {
             for(var keyword in keywords) {
-                if(val == keyword) {
+                if(x == keyword) {
                     match_count += 1
                 }
             }

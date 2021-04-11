@@ -1,26 +1,38 @@
-
 <!DOCTYPE html>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <html>
   <head>
-    <link rel="stylesheet" href="./CSS/main.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Upload Files!</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+    <title>Pholder: Home</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+      }
+    </style>
   </head>
-  <body>
-    <h1>Upload Images</h1>
-    <p> Please input images using the buttons below! Our Machine Learning algorithm will help sort the images. All you have to do is upload your image files and then hit confirm. </p>
-    <form action="./thankyou.html">
-      <label for="imagefiles" class="form-label"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Input Images here: </label>
-      <input  id="imagefiles" type="file" align-self="center" multiple accept=".jpg,.png" name="uploadfile"/>
-      <br />
-      
-      <button onclick="addimg(uploadfile)">Confirm</button>
-    </form>
-    <!-- You can also require other files to run in this process -->
+  <body ondrop="dropFile(event)" ondragover="dragOverFile(event);">
+    <div class="w3-modal" id="modal01">
+      <div class="w3-modal-content">
+        
+        <p style="text-align: center;">Drag and drop your images here</p>
+      </div>
+    </div>
+    <div class="w3-modal" id="detail-modal">
+      <div class="w3-modal-content" id="detail-modal-inside">
+        <p>Hi</p>
+      </div>
+    </div>
+    <div class="w3-top w3-bar" style="background-color: white !important;">
+      <h1 style="font-size: 8pt; text-align: left; padding-bottom: 0 !important;"> &nbsp;&#128193; drag & drop to open</h1>
+      <input type="text" placeholder="Search ..." class="w3-input w3-border-black" style="padding-top: 0 !important">
+    </div>
+    </br>
+    <div class="w3-container w3-row" id="gallery" style="padding-top:40px">
+      <!---->
+    </div>
+    </br>
+    
+    
     <script src="./renderer.js"></script>
   </body>
 </html>
