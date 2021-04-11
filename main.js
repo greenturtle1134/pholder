@@ -28,9 +28,9 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed
+// Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', function () {
-  app.quit()
+  if (process.platform !== 'darwin') app.quit()
 });
 
 ipcMain.on("add-image", (event, path)=>{
