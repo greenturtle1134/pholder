@@ -33,8 +33,8 @@ function dragOverFile(e){
     }, 1000)
 }
 
-function addimg() {
-    electron.addPhoto(document.getElementById('imagefiles').files[0].path);
+function addimg(filename) {
+    electron.addPhoto(filename);
 }
 
 function metaHTML(image){
