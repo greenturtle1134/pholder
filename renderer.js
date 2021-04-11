@@ -59,12 +59,12 @@ function metaHTML(image){
         console.log(image[key])
         if(key == "imagenet"){
             let val = image[key]
-            // if(val == null){
-            //     c2.innerHTML = "<i>loading</i>"
-            // } else{
-            //     c2.innerHTML = image[key]
-            // }
-            c2.innerHTML = val
+            if(val == null){
+                c2.innerHTML = "<i>loading</i>"
+            } else{
+                c2.innerHTML = val
+            }
+            // c2.innerHTML = val
         }
         else if(key == "metadata") {
             let val = image[key]
