@@ -2,12 +2,13 @@ const ExifImage = require('exif').ExifImage;
 const imagenet = require("./imagenet.js")
 const natural = require('natural')
 const {ipcMain} = require('electron');
+const fs = require('fs')
 class PhotoData {
     constructor(path) {
         this.path = path;
         this.metadata = null;
         this.imagenet = null;
-        this.date = null;
+        this.date = fs.statSync(path).ctime;
     }
 
     match(queries) {
@@ -17,6 +18,7 @@ class PhotoData {
         var match_count = 0
         for(let i in this.imagenet) {
             let keyword = this.imagenet[i];
+            var hasTerms = false;
             for(let j in queries){
                 let query = queries[j];
                 if(query.includes(":")){
@@ -43,12 +45,20 @@ class PhotoData {
                         }
                     }
                 }
-                else if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
-                    match_count += 1
+                else {
+                    hasTerms = true;
+                    if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
+                        match_count += 1
+                    }
                 }
             }
         }
-        return match_count;
+        if(hasTerms) {
+            return match_count;
+        }
+        else {
+            return 1;
+        }
     }
 }
 
