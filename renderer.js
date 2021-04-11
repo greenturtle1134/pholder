@@ -56,19 +56,19 @@ function metaHTML(image){
         c1.width = "25%"
         c2 = document.createElement("td")
         c2.innerHTML = ""
+        console.log(image[key])
         if(key == "imagenet"){
-            console.log(image[key])
             let val = image[key]
-            if(val == null){
-                c2.innerHTML = "<i>loading</i>"
-                console.log("a")
-            } else{
-                c2.innerHTML = image[key]
-                console.log("b")
-            }
+            // if(val == null){
+            //     c2.innerHTML = "<i>loading</i>"
+            //     console.log("a")
+            // } else{
+            //     c2.innerHTML = image[key]
+            //     console.log("b")
+            // }
+            c2.innerHTML = val
         }
         if(key == "metadata") {
-            console.log(image[key])
             let val = image[key]
             if(val != null) {
                 // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
@@ -82,13 +82,13 @@ function metaHTML(image){
                     }
                     c2.innerHTML += "Camera Model: " + image_meta["Make"] + " " + image_meta["Model"]
                 }
-                var exif_meta = val["exif"]
-                if("DateTimeOriginal" in exif_meta) {
-                    if(c2.innerHTML != "") {
-                        c2.innerHTML += "<br>"
-                    }
-                    c2.innerHTML += "Date & Time Created: " + exif_meta["DateTimeOriginal"]
-                }
+                // var exif_meta = val["exif"]
+                // if("DateTimeOriginal" in exif_meta) {
+                //     if(c2.innerHTML != "") {
+                //         c2.innerHTML += "<br>"
+                //     }
+                //     c2.innerHTML += "Date & Time Created: " + exif_meta["DateTimeOriginal"]
+                // }
             }
             // if metadata is null or all checked categories are empty
             if(c2.innerHTML == "") {
