@@ -35,5 +35,4 @@ app.on('window-all-closed', function () {
 ipcMain.on("add-image", (event, path)=>{
   photos.addPhoto(path)
   console.log(path);
-  console.log(photos);
 });

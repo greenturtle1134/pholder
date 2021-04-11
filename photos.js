@@ -26,7 +26,12 @@ module.exports.Photos = class {
             console.log('Error: ' + error.message);
         }
         imagenet.classify(path).then((e)=>{
-            photos.get(path).imagenet = e;
+            let identified = [];
+            for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
+                identified = identified.concat(e[i].className.split(", "));
+            }
+            photos.get(path).imagenet = identified;
+            console.log(identified);
         });
     }
 
