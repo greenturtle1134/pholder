@@ -54,7 +54,7 @@ function processFileOrDirectory(path){
           }
         })
       }else{
-        //I'm not dealing with your symbolic links you wierdo
+        //I'm not dealing with your symbolic links you weirdo
       }
     }
   })

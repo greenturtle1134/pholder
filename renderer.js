@@ -53,20 +53,22 @@ function metaHTML(image){
             c1.innerHTML = "Keywords"
         }
         c1.innerHTML = "<strong>" + c1.innerHTML + "</strong>"
-        c1.width = "100%"
+        c1.width = "25%"
         c2 = document.createElement("td")
         c2.innerHTML = ""
+        console.log(image[key])
         if(key == "imagenet"){
-            console.log(image[key])
             let val = image[key]
-            if(val == null){
-                c2.innerHTML = "<i>loading</i>"
-            }else{
-                c2.innerHTML = image[key]
-            }
+            // if(val == null){
+            //     c2.innerHTML = "<i>loading</i>"
+            //     console.log("a")
+            // } else{
+            //     c2.innerHTML = image[key]
+            //     console.log("b")
+            // }
+            c2.innerHTML = val
         }
         if(key == "metadata") {
-            console.log(image[key])
             let val = image[key]
             if(val != null) {
                 // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
@@ -78,15 +80,15 @@ function metaHTML(image){
                     if(c2.innerHTML != "") {
                         c2.innerHTML += "<br>"
                     }
-                    c2.innerHTML += "Phone Model: " + image_meta["Make"] + " " + image_meta["Model"]
+                    c2.innerHTML += "Camera Model: " + image_meta["Make"] + " " + image_meta["Model"]
                 }
-                var exif_meta = val["exif"]
-                if("DateTimeOriginal" in exif_meta) {
-                    if(c2.innerHTML != "") {
-                        c2.innerHTML += "<br>"
-                    }
-                    c2.innerHTML += "Date & Time Created: " + exif_meta["DateTimeOriginal"]
-                }
+                // var exif_meta = val["exif"]
+                // if("DateTimeOriginal" in exif_meta) {
+                //     if(c2.innerHTML != "") {
+                //         c2.innerHTML += "<br>"
+                //     }
+                //     c2.innerHTML += "Date & Time Created: " + exif_meta["DateTimeOriginal"]
+                // }
             }
             // if metadata is null or all checked categories are empty
             if(c2.innerHTML == "") {
@@ -169,7 +171,9 @@ function display_images(image_list){
 }
 
 electron.ipcOn('update-images', (event, images) => {
-  display_images(images);
+  if(document.getElementById("searchbar").value.length == 0){
+    display_images(images);
+  }
 });
 
 electron.ipcOn('replace-images', (event, images) => {
@@ -178,6 +182,11 @@ electron.ipcOn('replace-images', (event, images) => {
 });
 
 document.getElementById("searchbar").addEventListener("keydown", (event) => {
+  setTimeout(()=>{
+    if(document.getElementById("searchbar").value.length == 0){
+      electron.ipcSend("search", "")
+    }
+  }, 100)
   if(event.key == "Enter") {
     electron.ipcSend("search", document.getElementById("searchbar").value)
   }
