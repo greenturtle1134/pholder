@@ -1,5 +1,6 @@
 const ExifImage = require('exif').ExifImage;
 const imagenet = require("./imagenet.js")
+const geoc = require('./reverse-geocode.js')
 const natural = require('natural')
 const {ipcMain} = require('electron');
 const fs = require('fs')
@@ -8,6 +9,7 @@ class PhotoData {
         this.path = path;
         this.metadata = null;
         this.imagenet = null;
+        this.location = null;
         this.date = fs.statSync(path).ctime;
     }
 
@@ -73,28 +75,49 @@ module.exports.Photos = class {
         var photos = this.photos;
         var target = this.target;
         photos.set(path, new PhotoData(path));
-        photos.get(path).imagenet = null
-        target.send("update-images", [photos.get(path)])
+        var photo = photos.get(path);
+        photo.imagenet = null
+        target.send("update-images", [photo])
         try {
             new ExifImage({ image : path }, function (error, exifData) {
                 if (error)
                     console.log('Error: '+error.message);
                 else {
-                    photos.get(path).metadata = exifData;
-                    let [year, month, day, hour, minute, second] = exifData.exif.DateTimeOriginal.split(/[ :]/);
-                    photos.get(path).date = new Date(year, month-1, day, hour, minute, second)
-                    target.send("update-images", [photos.get(path)])
+                    photo.metadata = exifData;
+                    var gps_meta = exifData["gps"]
+                    if("GPSLatitudeRef" in gps_meta && "GPSLatitude" in gps_meta && "GPSLongitudeRef" in gps_meta && "GPSLongitude" in gps_meta) {
+                        var dms_lat = gps_meta["GPSLatitude"]
+                        var dms_long = gps_meta["GPSLongitude"]
+                        var latitude = Number(dms_lat[0]) + Number(dms_lat[1])/60 + Number(dms_lat[2])/3600
+                        var longitude = Number(dms_long[0]) + Number(dms_long[1])/60 + Number(dms_long[2])/3600
+                        if(gps_meta["GPSLatitudeRef"] == "S") {
+                            latitude *= -1
+                        }
+                        if(gps_meta["GPSLongitudeRef"] == "W") {
+                            longitude *= -1
+                        }
+                        photo.latitude = latitude;
+                        photo.longitude = longitude
+                        geoc.getLocation(latitude, longitude).then((e) => {
+                            photo.location = e[0];
+                        })
+                    }
+                    if ("exif" in exifData && "DateTimeOriginal" in exifData.exif) {
+                      let [year, month, day, hour, minute, second] = exifData.exif.DateTimeOriginal.split(/[ :]/);
+                      photos.get(path).date = new Date(year, month-1, day, hour, minute, second)
+                    }
+                    target.send("update-images", [photo])
                 }
             });
         } catch (error) {
             console.log('Error: ' + error.message);
         }
         imagenet.classify(path).then((e)=>{
-            console.log(e);
             let identified = [];
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
                 identified = identified.concat(e[i].class.split(", "));
             }
+            photo.imagenet = identified;
             if(identified.length == 0) {
                 console.log("aaa")
                 photos.get(path).imagenet = ["no keyword matches :\\"]
@@ -102,10 +125,10 @@ module.exports.Photos = class {
                 console.log("bb")
                 photos.get(path).imagenet = identified;
             }
-            target.send("update-images", [photos.get(path)])
+            target.send("update-images", [photo])
         }).catch((err)=>{
-            photos.get(path).imagenet = ["information unavailable :("]
-            target.send("update-images", [photos.get(path)])
+            photo.imagenet = ["information unavailable :("]
+            target.send("update-images", [photo])
         });
     }
 
