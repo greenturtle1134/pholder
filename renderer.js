@@ -61,8 +61,10 @@ function metaHTML(image){
             let val = image[key]
             if(val == null){
                 c2.innerHTML = "<i>loading</i>"
-            }else{
+                console.log("a")
+            } else{
                 c2.innerHTML = image[key]
+                console.log("b")
             }
         }
         if(key == "metadata") {
@@ -78,7 +80,7 @@ function metaHTML(image){
                     if(c2.innerHTML != "") {
                         c2.innerHTML += "<br>"
                     }
-                    c2.innerHTML += "Phone Model: " + image_meta["Make"] + " " + image_meta["Model"]
+                    c2.innerHTML += "Camera Model: " + image_meta["Make"] + " " + image_meta["Model"]
                 }
                 var exif_meta = val["exif"]
                 if("DateTimeOriginal" in exif_meta) {
