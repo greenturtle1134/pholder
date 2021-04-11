@@ -53,7 +53,7 @@ function metaHTML(image){
             c1.innerHTML = "Keywords"
         }
         c1.innerHTML = "<strong>" + c1.innerHTML + "</strong>"
-        c1.width = "100%"
+        c1.width = "25%"
         c2 = document.createElement("td")
         c2.innerHTML = ""
         if(key == "imagenet"){
