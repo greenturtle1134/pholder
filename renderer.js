@@ -45,6 +45,7 @@ function metaHTML(image){
     element = document.createElement("table")
     element.classList.add("w3-table")
     outer_element.appendChild(element)
+    var location_available = false
     for(let key in image){
         row = document.createElement("tr")
         c1 = document.createElement("td")
@@ -99,18 +100,28 @@ function metaHTML(image){
           if(val !== null) {
             console.log(val);
             c2.innerHTML += val.formattedAddress;
+            location_available = true
           }
           else {
             c2.innerHTML += "location unavailable :<"
+            location_available = false
           }
         }
         else {
             c2.innerHTML = image[key]
         }
         c2.width = "100%"
-        row.appendChild(c1)
-        row.appendChild(c2)
-        element.appendChild(row)
+        if(key == "latitude" || key == "longitude") {
+            if(!location_available) {
+                row.appendChild(c1)
+                row.appendChild(c2)
+                element.appendChild(row)
+            }
+        } else {
+            row.appendChild(c1)
+            row.appendChild(c2)
+            element.appendChild(row)
+        }
     }
     
     return outer_element.innerHTML
