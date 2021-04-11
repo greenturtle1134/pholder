@@ -5,7 +5,16 @@ const options = {
 const geocoder = NodeGeocoder(options)
 
 async function getLocation(lat, lon){
-    return geocoder.reverse({lat: lat, lon: lon});
+    var result = null;
+    while(result === null) {
+        try{
+            result = geocoder.reverse({lat: lat, lon: lon})
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+    return result;
 }
 
 exports.getLocation = getLocation

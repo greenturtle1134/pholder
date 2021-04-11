@@ -66,7 +66,7 @@ function metaHTML(image){
             // }
             c2.innerHTML = val
         }
-        if(key == "metadata") {
+        else if(key == "metadata") {
             let val = image[key]
             if(val != null) {
                 // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
@@ -92,8 +92,9 @@ function metaHTML(image){
             if(c2.innerHTML == "") {
                 c2.innerHTML = "metadata unavailable :("
             }
+            console.log(c2.innerHTML);
         }
-        if(key == "location") {
+        else if(key == "location") {
           let val = image[key];
           if(val !== null) {
             console.log(val);
