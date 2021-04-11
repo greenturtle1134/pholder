@@ -100,6 +100,9 @@ function metaHTML(image){
             console.log(val);
             c2.innerHTML += val.formattedAddress;
           }
+          else {
+            c2.innerHTML += "location unavailable"
+          }
         }
         else {
             c2.innerHTML = image[key]
