@@ -1,8 +1,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const {Photos} = require('./photos.js');
-
-const photos = new Photos();
+let photos = null;
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -12,8 +11,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     },
     icon: path.join(__dirname, "icon.png")
-  })
-
+  });
+  photos = new Photos(mainWindow.webContents);
   mainWindow.loadFile('index.html');
 }
 
@@ -34,6 +33,5 @@ app.on('window-all-closed', function () {
 });
 
 ipcMain.on("add-image", (event, path)=>{
-  photos.addPhoto(path)
-  console.log(path);
+  photos.addPhoto(path);
 });
