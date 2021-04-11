@@ -61,13 +61,10 @@ function metaHTML(image){
             let val = image[key]
             // if(val == null){
             //     c2.innerHTML = "<i>loading</i>"
-            //     console.log("a")
             // } else{
             //     c2.innerHTML = image[key]
-            //     console.log("b")
             // }
             c2.innerHTML = val
-            console.log("aaa")
         }
         if(key == "metadata") {
             let val = image[key]
