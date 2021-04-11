@@ -101,7 +101,7 @@ function metaHTML(image){
             c2.innerHTML += val.formattedAddress;
           }
           else {
-            c2.innerHTML += "location unavailable"
+            c2.innerHTML += "location unavailable :<"
           }
         }
         else {
