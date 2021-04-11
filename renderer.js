@@ -53,8 +53,10 @@ function metaHTML(image){
         row = document.createElement("tr")
         c1 = document.createElement("td")
         c1.innerHTML = key.replace(/^\w/, (c)=>(c.toUpperCase()))
+        c1.width = "100%"
         c2 = document.createElement("td")
         c2.innerHTML = image[key]
+        c2.width = "100%"
         row.appendChild(c1)
         row.appendChild(c2)
         element.appendChild(row)
