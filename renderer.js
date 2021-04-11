@@ -67,6 +67,7 @@ function metaHTML(image){
             //     console.log("b")
             // }
             c2.innerHTML = val
+            console.log("aaa")
         }
         if(key == "metadata") {
             let val = image[key]

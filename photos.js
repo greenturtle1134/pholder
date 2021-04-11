@@ -118,6 +118,13 @@ module.exports.Photos = class {
                 identified = identified.concat(e[i].class.split(", "));
             }
             photo.imagenet = identified;
+            if(identified.length == 0) {
+                console.log("aaa")
+                photos.get(path).imagenet = ["no keyword matches :\\"]
+            } else {
+                console.log("bb")
+                photos.get(path).imagenet = identified;
+            }
             target.send("update-images", [photo])
         }).catch((err)=>{
             photo.imagenet = ["information unavailable :("]
