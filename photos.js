@@ -26,8 +26,19 @@ class PhotoData {
                     let value = parts[1]
                     if(type == "date") {
                         let date_search = new Date(value);
-                        console.log(date_search, this.date);
                         if(this.date !== null && !sameDay(date_search, this.date)) {
+                            return 0;
+                        }
+                    }
+                    if(type == "before") {
+                        let date_search = new Date(value);
+                        if(this.date !== null && date_search.getTime() < this.date.getTime()) {
+                            return 0;
+                        }
+                    }
+                    if(type == "after") {
+                        let date_search = new Date(value);
+                        if(this.date !== null && date_search.getTime() > this.date.getTime()) {
                             return 0;
                         }
                     }
