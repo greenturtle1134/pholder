@@ -57,7 +57,7 @@ module.exports.Photos = class {
             console.log(identified);
             target.send("update-images", [photos.get(path)])
         }).catch((err)=>{
-            photos.get(path).imagenet = ["error"]
+            photos.get(path).imagenet = ["information unavailable :("]
             target.send("update-images", [photos.get(path)])
         });
     }

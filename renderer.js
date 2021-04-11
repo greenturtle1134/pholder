@@ -53,6 +53,10 @@ function metaHTML(image){
         row = document.createElement("tr")
         c1 = document.createElement("td")
         c1.innerHTML = key.replace(/^\w/, (c)=>(c.toUpperCase()))
+        if(key == "imagenet") {
+            c1.innerHTML = "Keywords"
+        }
+        c1.innerHTML = "<strong>" + c1.innerHTML + "</strong>"
         c1.width = "100%"
         c2 = document.createElement("td")
         c2.innerHTML = ""
@@ -69,14 +73,25 @@ function metaHTML(image){
             console.log(image[key])
             let val = image[key]
             if(val == null) {
-                c2.innerHTML = "<p>metadata unavailable :(</p>"
+                c2.innerHTML = "metadata unavailable :("
             }
             else{
                 // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
-                if("ImageWidth" in val["image"] && "ImageHeight" in val["image"]) {
-                    console.log(val["image"]["ImageWidth"])
-                    c2.innerHTML += "Dimensions: " + val["image"]["ImageWidth"] + ", " + val["image"]["ImageHeight"]
+                var image_meta = val["image"]
+                if("ImageWidth" in image_meta && "ImageHeight" in image_meta) {
+                    c2.innerHTML += "Dimensions: " + image_meta["ImageWidth"] + "x" + image_meta["ImageHeight"]
                 }
+                if("Make" in image_meta && "Model" in image_meta) {
+                    if(c2.innerHTML != "") {
+                        c2.innerHTML += "<br>"
+                    }
+                    c2.innerHTML += "Phone Model: " + image_meta["Make"] + " " + image_meta["Model"]
+                }
+
+            }
+            // if all checked categories are empty
+            if(c2.innerHTML == "") {
+                c2.innerHTML = "metadata unavailable :("
             }
         }
         else {
