@@ -55,6 +55,7 @@ function metaHTML(image){
         c1.innerHTML = key.replace(/^\w/, (c)=>(c.toUpperCase()))
         c1.width = "100%"
         c2 = document.createElement("td")
+        c2.innerHTML = ""
         if(key == "imagenet"){
             console.log(image[key])
             let val = image[key]
@@ -64,7 +65,23 @@ function metaHTML(image){
                 c2.innerHTML = image[key]
             }
         }
-        c2.innerHTML = image[key]
+        if(key == "metadata") {
+            console.log(image[key])
+            let val = image[key]
+            if(val == null) {
+                c2.innerHTML = "<p>metadata unavailable :(</p>"
+            }
+            else{
+                // metadata categories are: image, thumbnail, exif, gps, interoperability, makernote
+                if("ImageWidth" in val["image"] && "ImageHeight" in val["image"]) {
+                    console.log(val["image"]["ImageWidth"])
+                    c2.innerHTML += "Dimensions: " + val["image"]["ImageWidth"] + ", " + val["image"]["ImageHeight"]
+                }
+            }
+        }
+        else {
+            c2.innerHTML = image[key]
+        }
         c2.width = "100%"
         row.appendChild(c1)
         row.appendChild(c2)
