@@ -1,5 +1,6 @@
 const ExifImage = require('exif').ExifImage;
 const imagenet = require("./imagenet.js")
+const geoc = require('./reverse-geocode.js')
 const natural = require('natural')
 const {ipcMain} = require('electron');
 class PhotoData {
@@ -59,6 +60,27 @@ module.exports.Photos = class {
             photos.get(path).imagenet = ["information unavailable :("]
             target.send("update-images", [photos.get(path)])
         });
+        if(photos.get(path).metadata != null) {
+            let data = photos.get(path).metadata
+            var gps_meta = data["gps"]
+            if("GPSLatitudeRef" in gps_meta && "GPSLatitude" in gps_meta && "GPSLongitudeRef" in gps_meta && "GPSLongitude" in gps_meta) {
+                var dms_lat = gps_meta["GPSLatitude"]
+                var dms_long = gps_meta["GPSLongitude"]
+                console.log(dms_lat)
+                var latitude = Number(dms_lat[0]) + Number(dms_lat[1])/60 + Number(dms_lat[2])/3600
+                var longitude = Number(dms_long[0]) + Number(dms_long[1])/60 + Number(dms_long[2])/3600
+                if(gps_meta["GPSLatitudeRef"] == "S") {
+                    latitude *= -1
+                }
+                if(gps_meta["GPSLongitudeRef"] == "W") {
+                    longitude *= -1
+                }
+                var loc = geoc.getLocationName(latitude, longitude)
+                console.log(loc)
+                photos.get(path).location = loc
+                target.send("update-images", [photos.get(path)])
+            }
+        }
     }
 
     addPhotos(paths) {
