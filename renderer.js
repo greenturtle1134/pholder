@@ -162,7 +162,9 @@ function display_images(image_list){
 }
 
 electron.ipcOn('update-images', (event, images) => {
-  display_images(images);
+  if(document.getElementById("searchbar").value.length == 0){
+    display_images(images);
+  }
 });
 
 electron.ipcOn('replace-images', (event, images) => {
@@ -171,6 +173,11 @@ electron.ipcOn('replace-images', (event, images) => {
 });
 
 document.getElementById("searchbar").addEventListener("keydown", (event) => {
+  setTimeout(()=>{
+    if(document.getElementById("searchbar").value.length == 0){
+      electron.ipcSend("search", "")
+    }
+  }, 100)
   if(event.key == "Enter") {
     electron.ipcSend("search", document.getElementById("searchbar").value)
   }
