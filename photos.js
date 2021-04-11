@@ -9,16 +9,21 @@ class PhotoData {
         this.imagenet = null;
     }
 
-    match(query) {
-        if(query === null || query == "") {
-            return true;
+    match(queries) {
+        if(queries === null) {
+            return 1;
         }
-        if(this.imagenet !== null) {
-            return this.imagenet.includes(query);
+        var match_count = 0
+        for(let i in this.imagenet) {
+            let keyword = this.imagenet[i];
+            for(let j in queries){
+                let query = queries[j];
+                if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
+                    match_count += 1
+                }
+            }
         }
-        else{
-            return false;
-        }
+        return match_count;
     }
 }
 
@@ -89,21 +94,9 @@ module.exports.Photos = class {
         var queries = query.split(", ")
         var matches = []
         for(var [path, photo] of this.photos) {
-            var match_count = 0
-            var keywords = photo.imagenet
-            if(keywords !== null) {
-                for(let i in keywords) {
-                    let keyword = keywords[i];
-                    for(let j in queries) {
-                        let q = queries[j]
-                        if(natural.PorterStemmer.stem(q) == natural.PorterStemmer.stem(keyword)) {
-                            match_count += 1
-                        }
-                    }
-                }
-                if(match_count > 0) {
-                    matches.push([match_count, photo])
-                }
+            let match_count = photo.match(queries);
+            if(match_count > 0) {
+                matches.push([match_count, photo])
             }
         }
         matches = matches.sort(function(a, b) {
