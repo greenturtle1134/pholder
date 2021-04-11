@@ -4,7 +4,10 @@ const mobilenet = require('@tensorflow-models/mobilenet');
 const fs = require('fs')
 const util = require('util')
 
-const model = mobilenet.load()
+const model = mobilenet.load({
+  version: 2,
+  alpha: 1.0
+})
 
 async function imagenet_classify(image_path){
   imageBuffer = await util.promisify(fs.readFile)(image_path)
