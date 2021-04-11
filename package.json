@@ -14,7 +14,8 @@
   "author": "Pholder Contributors",
   "license": "GPLv3",
   "devDependencies": {
-    "electron": "^12.0.2"
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5"
   },
   "dependencies": {
     "@tensorflow-models/mobilenet": "^2.1.0",
