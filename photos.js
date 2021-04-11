@@ -51,7 +51,7 @@ module.exports.Photos = class {
             console.log(e);
             let identified = [];
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
-                identified = identified.concat(e[i].className.split(", "));
+                identified = identified.concat(e[i].class.split(", "));
             }
             photos.get(path).imagenet = identified;
             target.send("update-images", [photos.get(path)])

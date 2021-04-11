@@ -17,10 +17,11 @@
     "electron": "^12.0.2",
     "electron-builder": "^22.10.5"
   },
+  "peerDependencies": {},
   "dependencies": {
-    "@tensorflow-models/mobilenet": "^2.1.0",
-    "@tensorflow/tfjs": "3.3.0",
-    "@tensorflow/tfjs-node": "3.3.0",
+    "@tensorflow-models/coco-ssd": "2.2.1",
+    "@tensorflow/tfjs": "",
+    "@tensorflow/tfjs-node": "",
     "are-we-there-yet": "^1.1.5",
     "exif": "^0.6.0",
     "ipc": "0.0.1",
