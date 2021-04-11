@@ -120,10 +120,10 @@ module.exports.Photos = class {
             }
             photo.imagenet = identified;
             if(identified.length == 0) {
-                console.log("aaa")
+                console.log("aaa")  // for some reason it doesn't work unless u log smth
                 photos.get(path).imagenet = ["no keyword matches :\\"]
             } else {
-                console.log("bb")
+                console.log("bb")  // same thing
                 photos.get(path).imagenet = identified;
             }
             target.send("update-images", [photo])
