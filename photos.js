@@ -100,6 +100,7 @@ module.exports.Photos = class {
                         photo.longitude = longitude
                         geoc.getLocation(latitude, longitude).then((e) => {
                             photo.location = e[0];
+                            target.send("update-images", [photo])
                         })
                     }
                     if ("exif" in exifData && "DateTimeOriginal" in exifData.exif) {
