@@ -33,8 +33,5 @@ app.on('window-all-closed', function () {
 });
 
 ipcMain.on("add-image", (event, path)=>{
-  var parts = path.split('.');
-  var end = parts[parts.length - 1];
-  if (end == 'jpg' ||end == 'png'){
   photos.addPhoto(path);
-}});
+});
