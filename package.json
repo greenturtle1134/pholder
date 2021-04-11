@@ -20,7 +20,8 @@
   "dependencies": {
     "@tensorflow-models/coco-ssd": "2.2.1",
     "@tensorflow/tfjs": "",
-    "@tensorflow/tfjs-core": "^2.8.6",
+    "@tensorflow/tfjs-converter": "",
+    "@tensorflow/tfjs-core": "",
     "@tensorflow/tfjs-node": "",
     "are-we-there-yet": "^1.1.5",
     "exif": "^0.6.0",
