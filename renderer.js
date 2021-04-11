@@ -55,6 +55,15 @@ function metaHTML(image){
         c1.innerHTML = key.replace(/^\w/, (c)=>(c.toUpperCase()))
         c1.width = "100%"
         c2 = document.createElement("td")
+        if(key == "imagenet"){
+            console.log(image[key])
+            let val = image[key]
+            if(val == null){
+                c2.innerHTML = "<i>loading</i>"
+            }else{
+                c2.innerHTML = image[key]
+            }
+        }
         c2.innerHTML = image[key]
         c2.width = "100%"
         row.appendChild(c1)

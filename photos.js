@@ -20,6 +20,7 @@ module.exports.Photos = class {
         var photos = this.photos;
         var target = this.target;
         photos.set(path, new PhotoData(path));
+        photos.get(path).imagenet = null
         target.send("update-images", [photos.get(path)])
         try {
             new ExifImage({ image : path }, function (error, exifData) {
@@ -45,6 +46,9 @@ module.exports.Photos = class {
             }
             photos.get(path).imagenet = identified;
             console.log(identified);
+            target.send("update-images", [photos.get(path)])
+        }).catch((err)=>{
+            photos.get(path).imagenet = ["error"]
             target.send("update-images", [photos.get(path)])
         });
     }
