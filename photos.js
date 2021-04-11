@@ -35,13 +35,8 @@ module.exports.Photos = class {
         }
         imagenet.classify(path).then((e)=>{
             let identified = [];
-            var tokenizer = new natural.WordTokenizer()
             for(let i = 0; i<e.length; i++) { // Do we want to filter away low-probability identifications?
-                // identified = identified.concat(e[i].className.split(", "));
-                var tokens = tokenizer.tokenize(e[i].className)
-                for(let j = 0; j<tokens.length; j++) {
-                    identified.push(tokens[j])
-                }
+                identified = identified.concat(e[i].className.split(", "));
             }
             photos.get(path).imagenet = identified;
             console.log(identified);
@@ -64,11 +59,15 @@ module.exports.Photos = class {
         for(var path in photopaths) {
             var match_count = 0
             var keywords = photos.get(path).imagenet
-            if(keyword != null) {
+            var tokenizer = new natural.WordTokenizer()
+            if(keywords != null) {
                 for(keyword in keywords) {
-                    for(query in queries) {
-                        if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
-                            match_count += 1
+                    var tokens = tokenizer.tokenize(keyword)
+                    for(let i=0; i<tokens.length; i++) {
+                        for(query in queries) {
+                            if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(tokens[i])) {
+                                match_count += 1
+                            }
                         }
                     }
                 }
