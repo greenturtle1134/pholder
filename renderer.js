@@ -40,7 +40,7 @@ function metaHTML(image){
     imageElement = document.createElement("img")
     imageElement.src = image.path
     imageElement.style.width="100%"
-    imageElement.style.paddingTop="10px"
+    imageElement.style.paddingTop="40px"
     outer_element.appendChild(imageElement)
     element = document.createElement("table")
     element.classList.add("w3-table")
