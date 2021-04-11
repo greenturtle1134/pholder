@@ -4,8 +4,8 @@ const options = {
 }
 const geocoder = NodeGeocoder(options)
 
-async function getLocationName(lat, lon){
-    return geocoder.reverse({lat: lat, lon: lon}).formattedAddress
+async function getLocation(lat, lon){
+    return geocoder.reverse({lat: lat, lon: lon});
 }
 
-exports.getLocationName = getLocationName
+exports.getLocation = getLocation

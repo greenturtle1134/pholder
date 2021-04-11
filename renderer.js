@@ -93,6 +93,13 @@ function metaHTML(image){
                 c2.innerHTML = "metadata unavailable :("
             }
         }
+        if(key == "location") {
+          let val = image[key];
+          if(val !== null) {
+            console.log(val);
+            c2.innerHTML += val.formattedAddress;
+          }
+        }
         else {
             c2.innerHTML = image[key]
         }
