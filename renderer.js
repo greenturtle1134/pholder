@@ -63,35 +63,63 @@ function metaHTML(image){
     return outer_element.innerHTML
 }
 
+var images_displayed = new Map();
+
 function display_images(image_list){
     let gallery = document.getElementById("gallery")
     gallery.innerHTML = ""
     for(var i = 0; i < image_list.length; i++){
         let image = image_list[i]
-        let imageContainer = document.createElement("div")
-        imageContainer.classList.add("w3-col", "w3-quarter", "w3-padding", "w3-hover-pale-blue")
-        let imageElement = document.createElement("img")
-        imageElement.src = image.path
-        imageElement.style = "width: 100%"
-        imageContainer.appendChild(imageElement)
-        let metaAsHTML = metaHTML(image)
-        imageContainer.onclick = (e) => {
-            let modalContainer = document.getElementById("detail-modal")
-            let modal = document.getElementById("detail-modal-inside")
-            modal.innerHTML = ""
-            let modalHeader = document.createElement("div")
-            modalHeader.classList.add("w3-container")
-            modalHeader.innerHTML = "<span onclick=\"document.getElementById('detail-modal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>";
-            let modalBody = document.createElement("div")
-            modalBody.classList.add("w3-container")
-            modalBody.innerHTML = metaAsHTML
-            modal.appendChild(modalHeader)
-            modal.appendChild(modalBody)
-            modalContainer.style.display = "block"
-            console.log(modalContainer.innerHTML)
+        if(images_displayed.has(image.path)) {
+          let metaAsHtml = metaHTML(image)
+          images_displayed.get(image.path).onclick = (e) => {
+              let modalContainer = document.getElementById("detail-modal")
+              let modal = document.getElementById("detail-modal-inside")
+              modal.innerHTML = ""
+              let modalHeader = document.createElement("div")
+              modalHeader.classList.add("w3-container")
+              modalHeader.innerHTML = "<span onclick=\"document.getElementById('detail-modal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>";
+              let modalBody = document.createElement("div")
+              modalBody.classList.add("w3-container")
+              modalBody.innerHTML = metaAsHTML
+              modal.appendChild(modalHeader)
+              modal.appendChild(modalBody)
+              modalContainer.style.display = "block"
+              console.log(modalContainer.innerHTML)
+          }
         }
-        gallery.appendChild(imageContainer)
+        else {
+          let imageContainer = document.createElement("div")
+          imageContainer.classList.add("w3-col", "w3-quarter", "w3-padding", "w3-hover-pale-blue")
+          let imageElement = document.createElement("img")
+          imageElement.src = image.path
+          imageElement.style = "width: 100%"
+          imageContainer.appendChild(imageElement)
+          let metaAsHTML = metaHTML(image)
+          imageContainer.onclick = (e) => {
+              let modalContainer = document.getElementById("detail-modal")
+              let modal = document.getElementById("detail-modal-inside")
+              modal.innerHTML = ""
+              let modalHeader = document.createElement("div")
+              modalHeader.classList.add("w3-container")
+              modalHeader.innerHTML = "<span onclick=\"document.getElementById('detail-modal').style.display='none'\" class=\"w3-button w3-display-topright\">&times;</span>";
+              let modalBody = document.createElement("div")
+              modalBody.classList.add("w3-container")
+              modalBody.innerHTML = metaAsHTML
+              modal.appendChild(modalHeader)
+              modal.appendChild(modalBody)
+              modalContainer.style.display = "block"
+              console.log(modalContainer.innerHTML)
+          }
+          gallery.appendChild(imageContainer)
+          images_displayed.set(image.path, imageContainer);
+        }
     }
 }
 
-display_images([{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"}])
+electron.ipcOn('update-images', (event, images) => {
+  console.log(images);
+  display_images(images);
+});
+
+// display_images([{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"},{"path": "https://hdqwalls.com/wallpapers/best-nature-image.jpg", "goodness": "ok"}])

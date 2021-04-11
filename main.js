@@ -1,8 +1,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const {Photos} = require('./photos.js');
-
-const photos = new Photos();
+let photos = null;
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -12,6 +11,7 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+  photos = new Photos(mainWindow.webContents);
 
   mainWindow.loadFile('index.html');
 }

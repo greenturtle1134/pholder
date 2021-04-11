@@ -1,27 +1,33 @@
 const ExifImage = require('exif').ExifImage;
 const imagenet = require("./imagenet.js")
 const natural = require('natural')
+const {ipcMain} = require('electron');
 class PhotoData {
-    constructor() {
+    constructor(path) {
+        this.path = path;
         this.metadata = null;
         this.imagenet = null;
     }
 }
 
 module.exports.Photos = class {
-    constructor() {
+    constructor(target) {
         this.photos = new Map();
+        this.target = target;
     }
     
     addPhoto(path) {
         var photos = this.photos;
-        photos.set(path, new PhotoData);
+        var target = this.target;
+        photos.set(path, new PhotoData(path));
+        target.send("update-images", [photos.get(path)])
         try {
             new ExifImage({ image : path }, function (error, exifData) {
                 if (error)
                     console.log('Error: '+error.message);
                 else {
                     photos.get(path).metadata = exifData;
+                    target.send("update-images", [photos.get(path)])
                 }
             });
         } catch (error) {
@@ -34,6 +40,7 @@ module.exports.Photos = class {
             }
             photos.get(path).imagenet = identified;
             console.log(identified);
+            target.send("update-images", [photos.get(path)])
         });
     }
 
