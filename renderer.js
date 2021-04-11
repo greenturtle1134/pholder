@@ -7,13 +7,17 @@ function dropFile(e){
         for (var i = 0; i < e.dataTransfer.items.length; i++) {
           if (e.dataTransfer.items[i].kind === 'file') {
             let filename = e.dataTransfer.items[i].getAsFile().path  
-            addimg(filename);
+            if(filename.toLowerCase().includes(".jpg") || filename.toLowerCase().includes(".jpeg") || filename.toLowerCase().includes(".png") || filename.toLowerCase().includes(".gif") || filename.toLowerCase().includes(".bmp")){
+                addimg(filename);
+            }
           }
         }
       } else {
         for (var i = 0; i < e.dataTransfer.files.length; i++) {
-          let filename = e.dataTransfer.files[i].path
-          addimg(filename);
+          let filename = e.dataTransfer.files[i].path 
+          if(filename.toLowerCase().includes(".jpg") || filename.toLowerCase().includes(".jpeg") || filename.toLowerCase().includes(".png") || filename.toLowerCase().includes(".gif") || filename.toLowerCase().includes(".bmp")){
+              addimg(filename);
+          }
         }
       }
 }
