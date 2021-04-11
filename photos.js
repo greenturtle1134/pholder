@@ -1,8 +1,10 @@
 const ExifImage = require('exif').ExifImage;
 const imagenet = require("./imagenet.js")
+const natural = require('natural')
 class PhotoData {
     constructor() {
         this.metadata = null;
+        this.imagenet = null;
     }
 }
 
@@ -39,5 +41,36 @@ module.exports.Photos = class {
         for (path in paths) {
             this.addImage(path);
         }
+    }
+
+    searchPhotos(queries, photopaths) {
+        // queries is an array of search terms, photopaths is an array of paths
+        // assuming photos.get(path).imagenet returns an array of keywords associated with photo
+        // returns a sorted array of paths
+        var photos = this.photos
+        var matches = []
+        for(var path in photopaths) {
+            var match_count = 0
+            var keywords = photos.get(path).imagenet
+            if(keyword != null) {
+                for(keyword in keywords) {
+                    for(query in queries) {
+                        if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
+                            match_count += 1
+                        }
+                    }
+                }
+                if(match_count > 0) {
+                    matches.push([match_count, path])
+                }
+            }
+        }
+        matches = matches.sort(function(a, b) {
+            return b[0]-a[0]
+        })
+        for(var i=0; i<matches.length; i++) {
+            matches[i] = matches[i][1]
+        }
+        return matches
     }
 }
