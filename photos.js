@@ -7,6 +7,7 @@ class PhotoData {
         this.path = path;
         this.metadata = null;
         this.imagenet = null;
+        this.date = null;
     }
 
     match(queries) {
@@ -18,7 +19,20 @@ class PhotoData {
             let keyword = this.imagenet[i];
             for(let j in queries){
                 let query = queries[j];
-                if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
+                if(query.includes(":")){
+                    // This is a special one.
+                    let parts = query.split(/\s*:\s*/, 2)
+                    let type = parts[0]
+                    let value = parts[1]
+                    if(type == "date") {
+                        let date_search = new Date(value);
+                        console.log(date_search, this.date);
+                        if(this.date !== null && !sameDay(date_search, this.date)) {
+                            return 0;
+                        }
+                    }
+                }
+                else if(natural.PorterStemmer.stem(query) == natural.PorterStemmer.stem(keyword)) {
                     match_count += 1
                 }
             }
@@ -46,6 +60,8 @@ module.exports.Photos = class {
                     console.log('Error: '+error.message);
                 else {
                     photos.get(path).metadata = exifData;
+                    let [year, month, day, hour, minute, second] = exifData.exif.DateTimeOriginal.split(/[ :]/);
+                    photos.get(path).date = new Date(year, month-1, day, hour, minute, second)
                     target.send("update-images", [photos.get(path)])
                 }
             });
@@ -112,3 +128,10 @@ module.exports.Photos = class {
         this.target.send("replace-images", Array.from(this.photos.values()));
     }
 }
+
+// Lifted from https://stackoverflow.com/questions/43855166/how-to-tell-if-two-dates-are-in-the-same-day
+function sameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate();
+  }
